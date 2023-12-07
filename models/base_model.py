@@ -7,8 +7,6 @@ import uuid
 class BaseModel:
     """This represents the class."""
 
-    time_format = "%Y-%m-%dT%H:%M:%S.%f"
-
     def __init__(self, *args, **kwargs):
         """
         Creates an instance of the BaseModel
@@ -18,13 +16,16 @@ class BaseModel:
             created_at (datetime): Date and time of creation of the instance.
             updated_at (datetime): Current datetime when the object is changed.
         """
+        time_format = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-
-        for key, value in kwargs:
-            if key is "updated_at" or key is "created_at":
-                self.dict[key] = strptime(value, time_format)
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == "updated_at" or key == "created_at":
+                    self.__dict__[key] = datetime.strptime(value, time_format)
+                else:
+                    self.__dict__[key] = value
 
     def __str__(self):
         """Returns a string representation of the class."""
@@ -47,3 +48,4 @@ class BaseModel:
         new_dict["updated_at"] = self.updated_at.isoformat()
         new_dict["created_at"] = self.created_at.isoformat()
         new_dict["__class__"] = self.__class__.__name__
+        return (new_dict)
