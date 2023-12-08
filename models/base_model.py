@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """This module defines the BaseModel class."""
+import models
 from datetime import datetime
 import uuid
 
 
 class BaseModel:
     """This represents the class."""
+
+    time = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self, *args, **kwargs):
         """
@@ -44,6 +47,7 @@ class BaseModel:
     def save(self):
         """Updates updated_at with the current datetime."""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
