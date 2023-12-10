@@ -15,18 +15,21 @@ class BaseModel:
         Creates an instance of the BaseModel
 
         Attributes:
-            'id' (str): Unique identifer for each instance.
-            'created_at' (datetime): Date and time of creation of the instance.
-            'updated_at' (datetime): Current datetime when the object is changed.
+            id (str): Unique identifer for each instance.
+            created_at (datetime): Date and time of creation of the instance.
+            updated_at (datetime): Current datetime when the object is changed.
 
         If kwargs is not empty then:
-            Each key in kwargs (except '__class__') is treated as an attribute name.
+            Each key in kwargs (except '__class__')
+            is treated as an attribute name.
             Each corresponding value is set as the value of the attribute.
-            Strings representing 'created_at' and 'updated_at' are converted to datetime objects.
+            Strings representing 'created_at' and 'updated_at' are
+            converted to datetime objects.
 
         If kwargs is empty then:
             'id' attribute is set to a unique identifier.
-            'created_at' and 'updated_at' attributes are set to the current datetime.
+            'created_at' and 'updated_at' attributes are set to
+            the current datetime.
         """
         if kwargs:
             for key, value in kwargs.items():
