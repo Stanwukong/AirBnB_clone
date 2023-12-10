@@ -78,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
             else:
                 print("** no instance found **")
-    
+
     def do_update(self, arg):
         ar = arg.split()
         key = f"{ar[0]}.{ar[1]}"
