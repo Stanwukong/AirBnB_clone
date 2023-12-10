@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """Defines the command interpreter
     """
     prompt = "(hbnb) "
-    classes = {"BaseModel", "User"}
+    classes = {"BaseModel", "User", "Place", "State", "City", "Amenity", "Review"}
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel and prints the id
