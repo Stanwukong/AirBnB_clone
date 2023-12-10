@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
         if len(words) == 2:
             for i, v in enumerate(words):
                 if i == 0:
-                    if v in HBNBCommand.classes:
+                    if v not in HBNBCommand.classes:
                         print("** class doesn't exist **")
                         return
                 elif i == 1:
