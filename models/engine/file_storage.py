@@ -56,9 +56,6 @@ class FileStorage:
                 for item in data.values():
                     cls_name = item["__class__"]
                     del item["__class__"]
-                    if cls_name == "BaseModel":
-                        self.new(BaseModel(**item))
-                    elif cls_name == "User":
-                        self.new(User(**item))
+                    self.new(eval(cls_name)(**item))
         except FileNotFoundError:
             return
