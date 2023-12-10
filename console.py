@@ -80,13 +80,31 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_update(self, arg):
+        """Updates an instance based on the class name and id
+        by adding or updating attribute
+        """
         ar = arg.split()
-        key = f"{ar[0]}.{ar[1]}"
         objs = storage.all()
-        if key in objs:
-            obj = objs[key]
-            setattr(obj, ar[2], ar[3])
-            obj.save()
+        if len(ar) == 4:
+            key = f"{ar[0]}.{ar[1]}"
+            if key in objs:
+                rep = ar[3].replace('"', '')
+                setattr(objs[key], ar[2], rep)
+                objs[key].save()
+            else:
+                print("** no instance found **")
+        elif len(ar) == 0:
+            print("** class name missing **")
+        elif ar[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(ar) == 1:
+            print("** instance id missing **")
+        elif f"{ar[0]}.{ar[1]}" not in objs:
+            print("** no instance found **")
+        elif len(ar) == 2:
+            print("** attribute name missing **")
+        elif len(ar) == 3:
+            print("** value missing **")
 
     def do_quit(self, arg):
         """Quit command to exit the program
