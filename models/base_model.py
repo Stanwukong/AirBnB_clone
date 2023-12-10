@@ -8,26 +8,36 @@ import uuid
 class BaseModel:
     """This represents the class."""
 
+    time = "%Y-%m-%dT%H:%M:%S.%f"
+
     def __init__(self, *args, **kwargs):
         """
         Creates an instance of the BaseModel
 
         Attributes:
-            id (str): Unique identifer for each instance.
-            created_at (datetime): Date and time of creation of the instance.
-            updated_at (datetime): Current datetime when the object is changed.
+            'id' (str): Unique identifer for each instance.
+            'created_at' (datetime): Date and time of creation of the instance.
+            'updated_at' (datetime): Current datetime when the object is changed.
+
+        If kwargs is not empty then:
+            Each key in kwargs (except '__class__') is treated as an attribute name.
+            Each corresponding value is set as the value of the attribute.
+            Strings representing 'created_at' and 'updated_at' are converted to datetime objects.
+
+        If kwargs is empty then:
+            'id' attribute is set to a unique identifier.
+            'created_at' and 'updated_at' attributes are set to the current datetime.
         """
-        time_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        if len(kwargs) != 0:
+        if kwargs:
             for key, value in kwargs.items():
                 if key == "updated_at" or key == "created_at":
-                    self.__dict__[key] = datetime.strptime(value, time_format)
-                else:
+                    self.__dict__[key] = datetime.strptime(value, self.time)
+                elif key != "__class__":
                     self.__dict__[key] = value
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             models.storage.new(self)
 
     def __str__(self):
