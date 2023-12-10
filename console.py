@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         """
         ar = arg.split()
         objs = storage.all()
-        if len(ar) == 4:
+        if len(ar) >= 4:
             key = f"{ar[0]}.{ar[1]}"
             if key in objs:
                 rep = ar[3].replace('"', '')
