@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """Defines the command interpreter
     """
     prompt = "(hbnb) "
-    classes = {"BaseModel", "User", "Place", "State", "City", "Amenity", "Review"}
+    cl = {"BaseModel", "User", "Place", "State", "City", "Amenity", "Review"}
 
     def do_create(self, arg):
         """Creates a new instance of BaseModel and prints the id
@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         words = arg.split()
         if len(words) == 0:
             print("** class name missing **")
-        elif arg not in HBNBCommand.classes:
+        elif arg not in HBNBCommand.cl:
             print("** class doesn't exist **")
         else:
             new = eval(arg)()
@@ -39,7 +39,7 @@ class HBNBCommand(cmd.Cmd):
         if len(words) == 2:
             for i, v in enumerate(words):
                 if i == 0:
-                    if v not in HBNBCommand.classes:
+                    if v not in HBNBCommand.cl:
                         print("** class doesn't exist **")
                         return
                 elif i == 1:
@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
         based or not on the class name
         """
         ar = arg.split()
-        if len(ar) == 0 or (ar[0] in HBNBCommand.classes and len(ar) == 1):
+        if len(ar) == 0 or (ar[0] in HBNBCommand.cl and len(ar) == 1):
             objs = storage.all()
             print([str(obj) for obj in objs.values()])
         else:
@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(ar) == 0:
             print("** class name missing **")
-        elif ar[0] not in HBNBCommand.classes:
+        elif ar[0] not in HBNBCommand.cl:
             print("** class doesn't exist **")
         elif len(ar) != 2:
             print("** instance id missing **")
@@ -102,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         elif len(ar) == 0:
             print("** class name missing **")
-        elif ar[0] not in HBNBCommand.classes:
+        elif ar[0] not in HBNBCommand.cl:
             print("** class doesn't exist **")
         elif len(ar) == 1:
             print("** instance id missing **")
